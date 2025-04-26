@@ -1,0 +1,156 @@
+diff --git a/README.md b/README.md
+index aae03ae3de10ca6681df8fe83d61e7f37a13e9fe..902a76d179d53992df8ee679cda915be64ba02f5 100644
+--- a/README.md
++++ b/README.md
+@@ -39,9 +39,9 @@ export default {
+   data() {
+     return {
+       msg: 'Hello world!',
+-    }
++    };
+   },
+-}
++};
+ </script>
+ 
+ <style>
+@@ -73,15 +73,15 @@ In a nutshell, the combination of webpack and `vue-loader` gives you a modern, f
+    // code returned from the main loader for 'source.vue'
+ 
+    // import the <template> block
+-   import render from 'source.vue?vue&type=template'
++   import render from 'source.vue?vue&type=template';
+    // import the <script> block
+-   import script from 'source.vue?vue&type=script'
+-   export * from 'source.vue?vue&type=script'
++   import script from 'source.vue?vue&type=script';
++   export * from 'source.vue?vue&type=script';
+    // import <style> blocks
+-   import 'source.vue?vue&type=style&index=1'
++   import 'source.vue?vue&type=style&index=1';
+ 
+-   script.render = render
+-   export default script
++   script.render = render;
++   export default script;
+    ```
+ 
+    Notice how the code is importing `source.vue` itself, but with different request queries for each block.
+@@ -91,13 +91,13 @@ In a nutshell, the combination of webpack and `vue-loader` gives you a modern, f
+    Suppose we have configured `babel-loader` for all `*.js` files. That rule will be cloned and applied to Vue SFC `<script>` blocks as well. Internally to webpack, a request like
+ 
+    ```js
+-   import script from 'source.vue?vue&type=script'
++   import script from 'source.vue?vue&type=script';
+    ```
+ 
+    Will expand to:
+ 
+    ```js
+-   import script from 'babel-loader!vue-loader!source.vue?vue&type=script'
++   import script from 'babel-loader!vue-loader!source.vue?vue&type=script';
+    ```
+ 
+    Notice the `vue-loader` is also matched because `vue-loader` are applied to `.vue` files.
+@@ -111,13 +111,13 @@ In a nutshell, the combination of webpack and `vue-loader` gives you a modern, f
+    Will be returned by `vue-loader` as:
+ 
+    ```js
+-   import 'source.vue?vue&type=style&index=1&scoped&lang=scss'
++   import 'source.vue?vue&type=style&index=1&scoped&lang=scss';
+    ```
+ 
+    And webpack will expand it to:
+ 
+    ```js
+-   import 'style-loader!css-loader!sass-loader!vue-loader!source.vue?vue&type=style&index=1&scoped&lang=scss'
++   import 'style-loader!css-loader!sass-loader!vue-loader!source.vue?vue&type=style&index=1&scoped&lang=scss';
+    ```
+ 
+ 3. When processing the expanded requests, the main `vue-loader` will get invoked again. This time though, the loader notices that the request has queries and is targeting a specific block only. So it selects (`src/select.ts`) the inner content of the target block and passes it on to the loaders matched after it.
+@@ -131,8 +131,8 @@ In a nutshell, the combination of webpack and `vue-loader` gives you a modern, f
+ 
+    ```js
+    // <template lang="pug">
+-   import 'vue-loader/template-loader!pug-loader!source.vue?vue&type=template'
++   import 'vue-loader/template-loader!pug-loader!source.vue?vue&type=template';
+ 
+    // <style scoped lang="scss">
+-   import 'style-loader!vue-loader/style-post-loader!css-loader!sass-loader!vue-loader!source.vue?vue&type=style&index=1&scoped&lang=scss'
++   import 'style-loader!vue-loader/style-post-loader!css-loader!sass-loader!vue-loader!source.vue?vue&type=style&index=1&scoped&lang=scss';
+    ```
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index 746e06f97cd32ad31cfb4320bbc56ce41b4f6be6..99e892db369d5ab59f58667a8dca2e8c78e9d591 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -27,5 +27,16 @@ export interface VueLoaderOptions {
+     enableTsInTemplate?: boolean;
+     experimentalInlineMatchResource?: boolean;
+     isServerBuild?: boolean;
++    script?: Partial<Omit<SFCScriptCompileOptions, 'id' | 'isProd' | 'inlineTemplate' | 'templateOptions' | 'sourceMap' | 'genDefaultAs' | 'customElement' | 'defineModel' | 'propsDestructure'>> & {
++        /**
++         * @deprecated defineModel is now a stable feature and always enabled if
++         * using Vue 3.4 or above.
++         */
++        defineModel?: boolean;
++        /**
++         * @deprecated moved to `features.propsDestructure`.
++         */
++        propsDestructure?: boolean;
++    };
+ }
+ export default function loader(this: LoaderContext<VueLoaderOptions>, source: string): string | void;
+diff --git a/dist/index.js b/dist/index.js
+index a5e9827ce34efb14f0ccdd5759d13fa4147b7d27..8527e378f6cac15319b1db9ded536479d6d359c8 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -24,8 +24,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.VueLoaderPlugin = void 0;
+ const path = __importStar(require("path"));
++const crypto = __importStar(require("crypto"));
+ const qs = __importStar(require("querystring"));
+-const hash = require("hash-sum");
+ const compiler_1 = require("./compiler");
+ const select_1 = require("./select");
+ const hotReload_1 = require("./hotReload");
+@@ -39,6 +39,9 @@ const util_1 = require("./util");
+ let errorEmitted = false;
+ const { parse } = compiler_1.compiler;
+ const exportHelperPath = require.resolve('./exportHelper');
++function hash(text) {
++    return crypto.createHash('sha256').update(text).digest('hex').substring(0, 8);
++}
+ function loader(source) {
+     var _a;
+     const loaderContext = this;
+diff --git a/dist/resolveScript.js b/dist/resolveScript.js
+index a8504042175f6d9e4f8418cfb30ae63b0fc2f0e2..a9681a3acbbf10623beae35b21bdfe45658424a7 100644
+--- a/dist/resolveScript.js
++++ b/dist/resolveScript.js
+@@ -41,22 +41,14 @@ function resolveScript(descriptor, scopeId, options, loaderContext) {
+         templateCompiler = options.compiler;
+     }
+     try {
+-        resolved = compileScript(descriptor, {
+-            id: scopeId,
+-            isProd,
+-            inlineTemplate: enableInline,
++        resolved = compileScript(descriptor, Object.assign(Object.assign({}, options.script), { id: scopeId, isProd, inlineTemplate: enableInline, 
+             // @ts-ignore this has been removed in 3.4
+-            reactivityTransform: options.reactivityTransform,
+-            propsDestructure: options.propsDestructure,
+-            defineModel: options.defineModel,
+-            babelParserPlugins: options.babelParserPlugins,
+-            templateOptions: {
++            reactivityTransform: options.reactivityTransform, propsDestructure: options.propsDestructure, defineModel: options.defineModel, babelParserPlugins: options.babelParserPlugins, templateOptions: {
+                 ssr: isServer,
+                 compiler: templateCompiler,
+                 compilerOptions: Object.assign(Object.assign({}, options.compilerOptions), (0, util_1.resolveTemplateTSOptions)(descriptor, options)),
+                 transformAssetUrls: options.transformAssetUrls || true,
+-            },
+-        });
++            } }));
+     }
+     catch (e) {
+         loaderContext.emitError(e);
