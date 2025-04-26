@@ -89,7 +89,7 @@ export function pluginVue(options: PluginVueOptions = {}): RsbuildPlugin {
           .rule(CHAIN_ID.RULE.VUE)
           .test(VUE_REGEXP)
           .use(CHAIN_ID.USE.VUE)
-          .loader(require.resolve('vue-loader'))
+          .loader(require.resolve('vue-loader-18'))
           .options(vueLoaderOptions);
 
         // Support for lang="postcss" and lang="pcss" in SFC
