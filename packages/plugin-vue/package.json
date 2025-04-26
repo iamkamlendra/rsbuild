@@ -1,11 +1,11 @@
 {
-  "name": "@rsbuild/plugin-vue",
+  "name": "@rsbuild/plugin-vue3",
   "version": "1.0.7",
   "description": "Vue 3 plugin of Rsbuild",
   "homepage": "https://rsbuild.dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/web-infra-dev/rsbuild",
+    "url": "https://github.com/iamkamlendra/rsbuild",
     "directory": "packages/plugin-vue"
   },
   "license": "MIT",

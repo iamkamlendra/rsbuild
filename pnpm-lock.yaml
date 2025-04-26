@@ -20,6 +20,9 @@ patchedDependencies:
   url-loader:
     hash: 4ed67f741914e665ed1dcef907caaa2acc85269026674133f7b987661de3591f
     path: patches/url-loader@4.1.1.patch
+  vue-loader@17.4.2:
+    hash: 6a512ab43ece27fea12d21a00efe594cf45894693345d6cb96e038cfb057b33b
+    path: patches/vue-loader@17.4.2.patch
 
 importers:
 
@@ -1107,7 +1110,7 @@ importers:
     dependencies:
       vue-loader:
         specifier: ^17.4.2
-        version: 17.4.2(vue@3.5.13(typescript@5.8.3))(webpack@5.98.0)
+        version: 17.4.2(patch_hash=6a512ab43ece27fea12d21a00efe594cf45894693345d6cb96e038cfb057b33b)(vue@3.5.13(typescript@5.8.3))(webpack@5.98.0)
       webpack:
         specifier: ^5.98.0
         version: 5.98.0
@@ -13525,7 +13528,7 @@ snapshots:
       - tsx
       - yaml
 
-  vue-loader@17.4.2(vue@3.5.13(typescript@5.8.3))(webpack@5.98.0):
+  vue-loader@17.4.2(patch_hash=6a512ab43ece27fea12d21a00efe594cf45894693345d6cb96e038cfb057b33b)(vue@3.5.13(typescript@5.8.3))(webpack@5.98.0):
     dependencies:
       chalk: 4.1.2
       hash-sum: 2.0.0
