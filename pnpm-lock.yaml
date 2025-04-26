@@ -1108,9 +1108,9 @@ importers:
 
   packages/plugin-vue:
     dependencies:
-      vue-loader:
-        specifier: ^17.4.2
-        version: 17.4.2(patch_hash=6a512ab43ece27fea12d21a00efe594cf45894693345d6cb96e038cfb057b33b)(vue@3.5.13(typescript@5.8.3))(webpack@5.98.0)
+      vue-loader-18:
+        specifier: ^17.4.3
+        version: 17.4.3(vue@3.5.13(typescript@5.8.3))(webpack@5.98.0)
       webpack:
         specifier: ^5.98.0
         version: 5.98.0
@@ -4486,9 +4486,6 @@ packages:
     resolution: {integrity: sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw==}
     engines: {node: '>= 0.4'}
 
-  hash-sum@2.0.0:
-    resolution: {integrity: sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==}
-
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
@@ -6979,8 +6976,8 @@ packages:
       jsdom:
         optional: true
 
-  vue-loader@17.4.2:
-    resolution: {integrity: sha512-yTKOA4R/VN4jqjw4y5HrynFL8AK0Z3/Jt7eOJXEitsm0GMRHDBjCfCiuTiLP7OESvsZYo2pATCWhDqxC5ZrM6w==}
+  vue-loader-18@17.4.3:
+    resolution: {integrity: sha512-uk+YLdaW9+pgZgwW/2Q/qoB1j6p3wPkXbOgJIIFqIWvgWGoxltY5YQlTBAm67lHPSKhbQ4p7UktpN3PGB/UxMA==}
     peerDependencies:
       '@vue/compiler-sfc': '*'
       vue: '*'
@@ -10718,8 +10715,6 @@ snapshots:
     dependencies:
       has-symbols: 1.1.0
 
-  hash-sum@2.0.0: {}
-
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
@@ -13528,10 +13523,9 @@ snapshots:
       - tsx
       - yaml
 
-  vue-loader@17.4.2(patch_hash=6a512ab43ece27fea12d21a00efe594cf45894693345d6cb96e038cfb057b33b)(vue@3.5.13(typescript@5.8.3))(webpack@5.98.0):
+  vue-loader-18@17.4.3(vue@3.5.13(typescript@5.8.3))(webpack@5.98.0):
     dependencies:
       chalk: 4.1.2
-      hash-sum: 2.0.0
       watchpack: 2.4.2
       webpack: 5.98.0
     optionalDependencies:

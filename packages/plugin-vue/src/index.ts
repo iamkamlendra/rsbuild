@@ -1,6 +1,6 @@
 import { createRequire } from 'node:module';
 import type { EnvironmentConfig, RsbuildPlugin } from '@rsbuild/core';
-import { type VueLoaderOptions, VueLoaderPlugin } from 'vue-loader';
+import { type VueLoaderOptions, VueLoaderPlugin } from 'vue-loader-18';
 import { applySplitChunksRule } from './splitChunks.js';
 
 const require = createRequire(import.meta.url);
